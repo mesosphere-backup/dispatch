@@ -1,6 +1,8 @@
 
 from __future__ import absolute_import, print_function
 
+import json
+
 from flask import Flask
 from flask import request
 
@@ -24,3 +26,15 @@ def get_script(id):
         return "", 404
 
     return current.data
+
+@server.route("/job/<id>", methods=["GET"])
+def get_job(id):
+    current = STATE.get(id, None)
+    if not current:
+        return "", 404
+
+    return json.dumps({
+        "running": current.running,
+        "ip": current.location,
+        "port": current.port
+    })
