@@ -72,6 +72,7 @@ class DispatchScheduler(Scheduler):
                 driver.declineOffer(offer.id)
                 continue
 
+            job.location = offer.hostname
             task = self.make_task(job, offer, r)
             print("job: {0}; task: {1}; host: {2}".format(
                 job.id,
@@ -119,10 +120,10 @@ class DispatchScheduler(Scheduler):
         return cmd
 
     def statusUpdate(self, driver, status):
+
         # XXX - This is hard-coded, this is bad.
         if status.state == mesos_pb2.TASK_RUNNING:
             current = state.CURRENT[status.task_id.value]
-            current.location = "127.0.1.1"
             current.running = True
 
         # XXX - Remove job from status on completion
