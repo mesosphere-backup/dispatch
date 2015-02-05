@@ -16,9 +16,12 @@ parser.add("--master", env_var="MASTER",
     default="127.0.1.1:5050")
 parser.add("--user", env_var="USER",
     default="")
+parser.add("--queue-dir", env_var="QUEUE_DIR",
+    default="/var/spool/dispatch")
 
 @cmd_helpers.init(parser)
 def main():
+    state.CURRENT = state.State()
     scheduler.CURRENT = scheduler.DispatchScheduler()
 
     scheduler.CURRENT.run()
