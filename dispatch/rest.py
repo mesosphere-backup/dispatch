@@ -19,13 +19,21 @@ def run_job():
     STATE.add(current)
     return current.id
 
-@server.route("/job/<id>/data", methods=["GET"])
+@server.route("/job/<id>/script", methods=["GET"])
 def get_script(id):
     current = STATE.get(id, None)
     if not current:
         return "", 404
 
-    return current.data
+    return current.script
+
+@server.route("/job/<id>/public_key", methods=["GET"])
+def get_public_key(id):
+    current = STATE.get(id, None)
+    if not current:
+        return "", 404
+
+    return current.public_key
 
 @server.route("/job/<id>", methods=["GET"])
 def get_job(id):

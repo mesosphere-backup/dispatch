@@ -1,0 +1,4 @@
+Protocol 1,2
+RSAAuthentication yes
+PubkeyAuthentication yes
+StrictModes no
